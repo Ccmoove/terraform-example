@@ -53,18 +53,18 @@ resource "aws_dynamodb_table" "terraform_locks" {
 }
 
 # This is for the backend config after running the code
-#terraform {
+# terraform {
 #  backend "s3" {
-   # Replace this with your bucket name!
-#    bucket = "terraform-up-and-running-backend-state"
+#    Replace this with your bucket name!
+#    bucket = "terraform-7up-and-running-backend-state"
 #   key = "global/s3/terraform.tfstate"
 #   region = "us-east-1"
 
-   # Replace this with your DynamoDB table name!
+#    Replace this with your DynamoDB table name!
 #   dynamodb_table = "terraform-up-and-running-locks"
 #   encrypt = true
-#}
-#}
+# }
+# }
 
    
 
