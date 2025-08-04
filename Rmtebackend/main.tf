@@ -8,7 +8,7 @@ resource "aws_s3_bucket" "terraform_state" {
     
     # Prevent accidental deletion of this S3 bucket
     lifecycle {
-      prevent_destroy = false
+      prevent_destroy = true
     } 
 }
 
@@ -42,29 +42,29 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
 }
 
 resource "aws_dynamodb_table" "terraform_locks" {
-    name         = var.table_name
+    name         = "terraform-up-and-running-locks"
     billing_mode = "PAY_PER_REQUEST"
-     hash_key     = "LockID"
+     hash_key    = "LOCKID"    
 
      attribute {
-         name = "LockID"
+         name = "LOCKID"
          type = "S"
     } 
 }
 
-# # This is for the backend config after running the code
-# terraform {
-#   backend "s3" {
-# # Replace this with your bucket name!
-#     bucket = "terraform-7up-and-running-backend-state"
-#     key    = "Rmtebackend/terraform.tfstate"
-#     region = "us-east-1"
+#  This is for the backend config after running the code
+ terraform {
+   backend "s3" {
+#  Replace this with your bucket name!
+     bucket = "terraform-7up-and-running-backend-state"
+     key    = "Rmtebackend/terraform.tfstate"
+     region = "us-east-1"
 
 # # # # Replace this with your DynamoDB table name!
-#    dynamodb_table = "terraform-up-and-running-locks"
-#    encrypt = true
-# }
-# }
+    dynamodb_table = "terraform-up-and-running-locks"
+    use_lockfile = true
+ }
+ }
 
    
 
